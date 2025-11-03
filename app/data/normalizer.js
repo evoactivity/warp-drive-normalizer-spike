@@ -245,9 +245,7 @@ function normalizeResourceRecursive(
     };
 
     if (hasRelationships) {
-      const allIncluded = resources.flatMap((r) => r.included || []);
-      const included = mapTypes(allIncluded, relationshipTypeMap);
-      if (included) result.included = included;
+      result.included = resources.flatMap((r) => r.included || []);
     }
 
     return result;
@@ -265,8 +263,7 @@ function normalizeResourceRecursive(
   if (hasRelationships) {
     addJsonApiLinks(result.data.relationships, url, result.data.id);
     mapTypes(result.data.relationships, relationshipTypeMap);
-    const included = mapTypes(result.included, relationshipTypeMap);
-    if (included) result.included = included;
+    result.included = mapTypes(result.included, relationshipTypeMap);
   }
 
   return result;
